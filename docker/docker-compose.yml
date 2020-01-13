@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    database:
+        image: mariadb
+        volumes:
+            - '../var/db:/var/lib/mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: dev
+            MYSQL_DATABASE: formation
+            MYSQL_USER: dev
+            MYSQL_PASSWORD: dev
+        command: ["--default-authentication-plugin=mysql_native_password"]
+        ports:
+            - 3306:3306
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        environment:
+          PMA_HOST: database
+    app:
+        build: 
+            context: ./app
+            args:
+              phpversion: 7.4
+        ports:
+            - 8080:80
+        volumes:
+            - ../:/var/www/html:cached
+            - "./app/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:delegated"
