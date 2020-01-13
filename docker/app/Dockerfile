@@ -14,7 +14,6 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-USER www-data
-WORKDIR /var/www/html
+COPY ./000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-ENTRYPOINT ["echo", "hello world"]
+WORKDIR /var/www/html
