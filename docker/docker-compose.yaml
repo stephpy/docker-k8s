@@ -13,12 +13,6 @@ services:
         command: ["--default-authentication-plugin=mysql_native_password"]
         ports:
             - 3306:3306
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        ports:
-            - "8081:80"
-        environment:
-          PMA_HOST: database
     app:
         build:
             context: ./app
