@@ -1,0 +1,47 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+          app: my-app
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      - name: my-app-storage
+        hostPath:
+          path: /mnt/k8s/sit
+      containers:
+      - image: stephpy/docker-k8s:latest
+        imagePullPolicy: Always
+        name: my-app
+        stdin: true
+        tty: true
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: my-app-secrets
+                key: database-url
+        envFrom:
+          - configMapRef:
+              name: my-app-config
+        volumeMounts:
+        - name: my-app-storage
+          mountPath: /var/www/project/var/log
+          subPath: log
