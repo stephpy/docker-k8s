@@ -1,4 +1,4 @@
-name: On Commit
+name: Test commit
 
 on: [push]
 
