@@ -1,0 +1,21 @@
+name: On Commit
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Build application
+      run: docker build --build-arg phpversion=7.4 -f docker/prod/Dockerfile . --tag stephpy/docker-k8s:latest
+
+    - name: Docker login
+      run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push docker
+      run: docker push stephpy/docker-k8s:latest
