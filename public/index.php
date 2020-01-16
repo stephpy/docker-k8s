@@ -1,5 +1,9 @@
 <?php
 
+if (isset($_GET['foo'])) {
+    exit('COUCOU');
+}
+
 use Formation\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
