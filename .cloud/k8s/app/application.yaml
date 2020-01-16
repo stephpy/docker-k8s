@@ -27,7 +27,7 @@ spec:
         hostPath:
           path: /mnt/k8s/sit
       containers:
-      - image: stephpy/docker-k8s:latest
+      - image: agence301/base:latest
         imagePullPolicy: Always
         name: my-app
         stdin: true

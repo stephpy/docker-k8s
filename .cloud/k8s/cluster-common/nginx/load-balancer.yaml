@@ -10,7 +10,7 @@ spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
   externalIPs:
-    - {CHANGEME}
+    - 217.182.94.116
   selector:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
