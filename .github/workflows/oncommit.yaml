@@ -18,7 +18,7 @@ jobs:
       run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push docker
-      run: docker push stephpy/docker-k8s:latest
+      run: docker push agence301/base:latest
 
     - name: Export kube config secret
       run: echo ${{ secrets.KUBECONFIG_SECRET }} | base64 --decode > ~/.kube/config
