@@ -21,7 +21,7 @@ jobs:
       run: docker push agence301/base:latest
 
     - name: Export kube config secret
-      run: echo ${{ secrets.KUBECONFIG_SECRET }} | base64 --decode > ~/.kube/config
+      run: echo ${{ secrets.KUBECONFIG_SECRET }} | base64 -d > ./kubeconfig.yaml
 
     - name: Kubectl rollout restart
-      run: kubectl rollout restart -n my-app deployment my-app
+      run: kubectl --kubeconfig=./kubeconfig.yaml rollout restart -n my-app deployment my-app
